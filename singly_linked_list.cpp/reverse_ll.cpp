@@ -24,6 +24,20 @@ void print(Node* &head)
     }
     cout<<endl;
 }
+
+//Another way
+Node* recursive(Node* head)
+{
+    if(head==NULL || head->next==NULL)
+    return head;
+
+    Node* min_head = recursive(head->next);
+    head->next->next = head;
+    head->next = NULL;
+
+    return min_head;
+}
+
 // Recursive Way
 Node* reverseR(Node* &head,Node* cur,Node* prev)
 {
@@ -35,6 +49,7 @@ Node* reverseR(Node* &head,Node* cur,Node* prev)
     reverseR(head,cur->next,cur);
     cur->next = prev;
 }
+
 //Iterative Way
 Node* reverseLL(Node* head)
 {
@@ -77,7 +92,7 @@ int main()
 
     cout<<"Here the Reverse : ";
     
-    head = reverseLL(head);
+    head = recursive(head);
     print(head);
 
     return 0;
